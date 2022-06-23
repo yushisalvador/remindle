@@ -7,12 +7,19 @@ import {
   TextInput,
 } from "react-native";
 import { TouchableOpacity } from "react-native-web";
-import { auth } from "../firebase";
+import { auth, firebase } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { useNavigation } from "@react-navigation/core";
+import {
+  collection,
+  doc,
+  setDoc,
+  getFirestore,
+  getDoc,
+} from "firebase/firestore";
 
 const LoginScreen = () => {
   const [userEmail, setUserEmail] = useState("");
@@ -29,23 +36,43 @@ const LoginScreen = () => {
     return unsubscribe;
   }, []);
 
-  const handleRegister = () => {
-    createUserWithEmailAndPassword(auth, userEmail, userPassword)
-      .then((userCredentials) => {
-        console.log(userCredentials);
-        const user = userCredentials.user;
-        console.log("signed up as", user.email);
-      })
-      .catch((error) => alert(error.message));
+  const handleRegister = async () => {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        userEmail,
+        userPassword
+      );
+      const user = userCredentials.user;
+      const uid = user.uid;
+      const db = getFirestore();
+      await setDoc(doc(db, "users", uid), {
+        id: uid,
+        email: userEmail,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, userEmail, userPassword)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("logged in as", user.email);
-      })
-      .catch((error) => alert(error.message));
+  const handleLogin = async () => {
+    try {
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        userEmail,
+        userPassword
+      );
+      const user = userCredentials.user;
+      const uid = user.uid;
+      const db = getFirestore();
+      if ((await getDoc(doc(db, "users", uid))).exists()) {
+        navigation.navigate("Home");
+      } else {
+        alert("cannot find user");
+      }
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (

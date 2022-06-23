@@ -12,3 +12,4 @@ const app = firebase.initializeApp({
 });
 
 export const auth = getAuth(app);
+export { firebase };
