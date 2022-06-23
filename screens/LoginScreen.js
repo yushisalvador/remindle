@@ -29,23 +29,32 @@ const LoginScreen = () => {
     return unsubscribe;
   }, []);
 
-  const handleRegister = () => {
-    createUserWithEmailAndPassword(auth, userEmail, userPassword)
-      .then((userCredentials) => {
-        console.log(userCredentials);
-        const user = userCredentials.user;
-        console.log("signed up as", user.email);
-      })
-      .catch((error) => alert(error.message));
+  const handleRegister = async () => {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        userEmail,
+        userPassword
+      );
+      const user = userCredentials.user;
+      console.log(user);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, userEmail, userPassword)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("logged in as", user.email);
-      })
-      .catch((error) => alert(error.message));
+  const handleLogin = async () => {
+    try {
+      const userCredentials = signInWithEmailAndPassword(
+        auth,
+        userEmail,
+        userPassword
+      );
+      const user = userCredentials.user;
+      console.log("logged in as ", user);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
