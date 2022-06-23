@@ -7,12 +7,19 @@ import {
   TextInput,
 } from "react-native";
 import { TouchableOpacity } from "react-native-web";
-import { auth } from "../firebase";
+import { auth, firebase } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { useNavigation } from "@react-navigation/core";
+import {
+  collection,
+  doc,
+  setDoc,
+  getFirestore,
+  getDoc,
+} from "firebase/firestore";
 
 const LoginScreen = () => {
   const [userEmail, setUserEmail] = useState("");
@@ -37,7 +44,12 @@ const LoginScreen = () => {
         userPassword
       );
       const user = userCredentials.user;
-      console.log(user);
+      const uid = user.uid;
+      const db = getFirestore();
+      await setDoc(doc(db, "users", uid), {
+        id: uid,
+        email: userEmail,
+      });
     } catch (error) {
       alert(error.message);
     }
@@ -45,13 +57,19 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     try {
-      const userCredentials = signInWithEmailAndPassword(
+      const userCredentials = await signInWithEmailAndPassword(
         auth,
         userEmail,
         userPassword
       );
       const user = userCredentials.user;
-      console.log("logged in as ", user);
+      const uid = user.uid;
+      const db = getFirestore();
+      if ((await getDoc(doc(db, "users", uid))).exists()) {
+        navigation.navigate("Home");
+      } else {
+        alert("cannot find user");
+      }
     } catch (error) {
       alert(error.message);
     }
