@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,14 +8,26 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-web";
 import { auth } from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigation } from "@react-navigation/core";
 
 const LoginScreen = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.navigate("Home");
+      }
+    });
+    return unsubscribe;
+  }, []);
+
   const handleRegister = () => {
-    auth
-      .createUserWithEmailAndPassword(userEmail, userPassword)
+    createUserWithEmailAndPassword(auth, userEmail, userPassword)
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("signed up as", user.email);
@@ -25,7 +37,7 @@ const LoginScreen = () => {
 
   const handleLogin = () => {
     auth
-      .createUserWithEmailAndPassword(userEmail, userPassword)
+      .signInWithEmailAndPassword(userEmail, userPassword)
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("logged in as", user.email);
@@ -40,13 +52,13 @@ const LoginScreen = () => {
           placeholder="Email"
           value={userEmail}
           style={styles.input}
-          onChange={(text) => setUserEmail(text)}
+          onChangeText={(text) => setUserEmail(text)}
         />
         <TextInput
           placeholder="Password"
           value={userPassword}
           style={styles.input}
-          onChange={(text) => setUserPassword(text)}
+          onChangeText={(text) => setUserPassword(text)}
           secureTextEntry
         />
       </View>
