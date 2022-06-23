@@ -13,6 +13,26 @@ const LoginScreen = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
+  const handleRegister = () => {
+    auth
+      .createUserWithEmailAndPassword(userEmail, userPassword)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        console.log("signed up as", user.email);
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  const handleLogin = () => {
+    auth
+      .createUserWithEmailAndPassword(userEmail, userPassword)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        console.log("logged in as", user.email);
+      })
+      .catch((error) => alert(error.message));
+  };
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style={styles.inputContainer}>
@@ -32,10 +52,13 @@ const LoginScreen = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onChange={handleLogin} style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.buttonOutline]}>
+        <TouchableOpacity
+          onPress={handleRegister}
+          style={[styles.button, styles.buttonOutline]}
+        >
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
       </View>
