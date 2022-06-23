@@ -8,7 +8,10 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-web";
 import { auth } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { useNavigation } from "@react-navigation/core";
 
 const LoginScreen = () => {
@@ -29,6 +32,7 @@ const LoginScreen = () => {
   const handleRegister = () => {
     createUserWithEmailAndPassword(auth, userEmail, userPassword)
       .then((userCredentials) => {
+        console.log(userCredentials);
         const user = userCredentials.user;
         console.log("signed up as", user.email);
       })
