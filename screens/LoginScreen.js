@@ -40,8 +40,7 @@ const LoginScreen = () => {
   };
 
   const handleLogin = () => {
-    auth
-      .signInWithEmailAndPassword(userEmail, userPassword)
+    signInWithEmailAndPassword(auth, userEmail, userPassword)
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("logged in as", user.email);
@@ -68,7 +67,7 @@ const LoginScreen = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onChange={handleLogin} style={styles.button}>
+        <TouchableOpacity onPress={handleLogin} style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity
