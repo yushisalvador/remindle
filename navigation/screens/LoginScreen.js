@@ -5,9 +5,10 @@ import {
   View,
   KeyboardAvoidingView,
   TextInput,
+  Image,
 } from "react-native";
 import { TouchableOpacity } from "react-native-web";
-import { auth, firebase } from "../config/firebase";
+import { auth, firebase } from "../../config/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -77,6 +78,11 @@ const LoginScreen = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <Image
+        source={require("../../assets/logo.png")}
+        style={{ width: 250, height: 250 }}
+      />
+
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Email"
@@ -117,41 +123,52 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   inputContainer: {
-    width: "80%",
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
+
   input: {
     backgroundColor: "white",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
     marginTop: 5,
+    width: "80%",
   },
+
   buttonContainer: {
-    width: "60%",
+    width: "100%",
+    display: "flex",
     justifyContent: "center",
     alignItems: "center",
     marginTop: 40,
   },
+
   button: {
-    backgroundColor: "#0782F9",
-    width: "100%",
+    backgroundColor: "#f9c065",
+    width: "80%",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
   },
+
   buttonOutline: {
     backgroundColor: "white",
     marginTop: 5,
-    borderColor: "#0782F9",
-    borderWidth: 2,
+    borderColor: "#000000",
+    borderWidth: 1,
   },
+
   buttonText: {
     color: "white",
     fontWeight: "700",
     fontSize: 16,
   },
+
   buttonOutlineText: {
-    color: "#0782F9",
+    color: "#f9c065",
     fontWeight: "700",
     fontSize: 16,
   },
