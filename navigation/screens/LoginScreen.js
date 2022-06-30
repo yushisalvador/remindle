@@ -7,7 +7,7 @@ import {
   TextInput,
   Image,
 } from "react-native";
-import { TouchableOpacity } from "react-native-web";
+import { TouchableOpacity } from "react-native";
 import { auth, firebase } from "../../config/firebase";
 import {
   createUserWithEmailAndPassword,
