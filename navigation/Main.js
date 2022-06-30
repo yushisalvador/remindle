@@ -1,8 +1,9 @@
 import * as React from "react";
-import { NavigationContainer, StackRouter } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 // Screens
 import HomeScreen from "./screens/HomeScreen";
@@ -11,6 +12,20 @@ import OccasionsScreen from "./screens/OccasionsScreen";
 import LoginScreen from "./screens/LoginScreen";
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+function Stacks() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+}
 
 function MainContainer() {
   return (
@@ -18,6 +33,7 @@ function MainContainer() {
       <Tab.Navigator
         initialRouteName={"home"}
         screenOptions={({ route }) => ({
+          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             let rn = route.name;
@@ -45,19 +61,29 @@ function MainContainer() {
           style: { paddingBottom: 8, fontSize: 10 },
         }}
       >
-        <Tab.Screen name={"Home"} component={HomeScreen} />
+        <Tab.Screen
+          name={"Home"}
+          component={Stacks}
+          options={({ route }) => ({
+            tabBarStyle: {
+              display: getTabBarVisibility(route),
+              backgroundColor: "white",
+            },
+          })}
+        />
         <Tab.Screen name={"Occasions"} component={OccasionsScreen} />
         <Tab.Screen name={"Settings"} component={SettingsScreen} />
-        <Tab.Screen
-          name={"Login"}
-          component={LoginScreen}
-          options={{
-            tabBarButton: (props) => null,
-          }}
-        />
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
 
+function getTabBarVisibility(route) {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
+
+  if (routeName === "Login") {
+    return "none";
+  }
+  return "flex";
+}
 export default MainContainer;
