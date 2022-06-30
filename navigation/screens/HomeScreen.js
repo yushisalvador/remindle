@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-web";
+import { TouchableOpacity } from "react-native";
 import { auth } from "../.././config/firebase";
 import { useNavigation } from "@react-navigation/core";
 
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontWeight: "700",
-    fontSize: "1rem",
+    fontSize: 20,
   },
   mainText: {
     marginTop: 30,
@@ -65,8 +65,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginLeft: "1.4rem",
     textAlign: "left",
-    fontSize: "2.6rem",
-    lineSpacing: 10,
+    fontSize: 40,
   },
   bgImage: {
     flex: 1,
