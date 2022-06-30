@@ -5,7 +5,7 @@ import {
   View,
   KeyboardAvoidingView,
   TextInput,
-  ImageBackground,
+  Image,
 } from "react-native";
 import { TouchableOpacity } from "react-native-web";
 import { auth, firebase } from "../config/firebase";
@@ -78,40 +78,38 @@ const LoginScreen = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <ImageBackground
-        source={require("../assets/cake.jpg")}
-        resizeMode="cover"
-        blurRadius={2}
-        style={styles.bgImage}
-      >
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="Email"
-            value={userEmail}
-            style={styles.input}
-            onChangeText={(text) => setUserEmail(text)}
-          />
-          <TextInput
-            placeholder="Password"
-            value={userPassword}
-            style={styles.input}
-            onChangeText={(text) => setUserPassword(text)}
-            secureTextEntry
-          />
-        </View>
+      <Image
+        source={require("../assets/logo.png")}
+        style={{ width: 250, height: 250 }}
+      />
 
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={handleLogin} style={styles.button}>
-            <Text style={styles.buttonText}>Login</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={handleRegister}
-            style={[styles.button, styles.buttonOutline]}
-          >
-            <Text style={styles.buttonOutlineText}>Register</Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Email"
+          value={userEmail}
+          style={styles.input}
+          onChangeText={(text) => setUserEmail(text)}
+        />
+        <TextInput
+          placeholder="Password"
+          value={userPassword}
+          style={styles.input}
+          onChangeText={(text) => setUserPassword(text)}
+          secureTextEntry
+        />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={handleLogin} style={styles.button}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleRegister}
+          style={[styles.button, styles.buttonOutline]}
+        >
+          <Text style={styles.buttonOutlineText}>Register</Text>
+        </TouchableOpacity>
+      </View>
     </KeyboardAvoidingView>
   );
 };
@@ -149,7 +147,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: "#0782F9",
+    backgroundColor: "#f9c065",
     width: "80%",
     padding: 15,
     borderRadius: 10,
@@ -159,8 +157,8 @@ const styles = StyleSheet.create({
   buttonOutline: {
     backgroundColor: "white",
     marginTop: 5,
-    borderColor: "#0782F9",
-    borderWidth: 2,
+    borderColor: "#000000",
+    borderWidth: 1,
   },
 
   buttonText: {
@@ -170,14 +168,8 @@ const styles = StyleSheet.create({
   },
 
   buttonOutlineText: {
-    color: "#0782F9",
+    color: "#f9c065",
     fontWeight: "700",
     fontSize: 16,
-  },
-
-  bgImage: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
   },
 });
