@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-native";
 import { TouchableOpacity } from "react-native-web";
-import { auth, firebase } from "../config/firebase";
+import { auth, firebase } from "../../config/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -79,7 +79,7 @@ const LoginScreen = () => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image
-        source={require("../assets/logo.png")}
+        source={require("../../assets/logo.png")}
         style={{ width: 250, height: 250 }}
       />
 

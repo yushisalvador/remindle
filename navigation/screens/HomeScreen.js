@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View, ImageBackground } from "react-native";
 import React from "react";
+import { StyleSheet, Text, View, ImageBackground } from "react-native";
 import { TouchableOpacity } from "react-native-web";
-import { auth } from "../config/firebase";
+import { auth } from "../.././config/firebase";
 import { useNavigation } from "@react-navigation/core";
-import { FullWindowOverlay } from "react-native-screens";
+
 const HomeScreen = () => {
   const navigation = useNavigation();
 
@@ -11,7 +11,7 @@ const HomeScreen = () => {
     auth
       .signOut()
       .then(() => {
-        navigation.replace("Login");
+        navigation.navigate("Login");
       })
       .catch((error) => {
         console.log(error);
@@ -19,26 +19,17 @@ const HomeScreen = () => {
   };
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={require("../assets/cake.jpg")}
-        resizeMode="cover"
-        blurRadius={2}
-        style={styles.bgImage}
-      >
-        <View>
-          <Text style={styles.mainText}>
-            Welcome, {auth.currentUser?.email}
-          </Text>
-          <Text style={styles.mainText}>
-            Helping You Remember Whats Important
-          </Text>
-        </View>
-        <View style={styles.containerButton}>
-          <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-            <Text style={styles.buttonText}>Sign out</Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
+      <View>
+        <Text style={styles.mainText}>Welcome, {auth.currentUser?.email}</Text>
+        <Text style={styles.mainText}>
+          Helping You Remember Whats Important
+        </Text>
+      </View>
+      <View style={styles.containerButton}>
+        <TouchableOpacity onPress={handleSignOut} style={styles.button}>
+          <Text style={styles.buttonText}>Sign out</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
