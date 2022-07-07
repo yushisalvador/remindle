@@ -78,6 +78,7 @@ const LoginScreen = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <Text style={styles.appName}>REMINDLE</Text>
       <Image
         source={require("../../assets/logo.png")}
         style={{ width: 250, height: 250 }}
@@ -171,5 +172,12 @@ const styles = StyleSheet.create({
     color: "#f9c065",
     fontWeight: "700",
     fontSize: 16,
+  },
+
+  appName: {
+    fontSize: 50,
+    fontWeight: "bold",
+    fontFamily: "Monospace",
+    color: "#f9c065",
   },
 });
