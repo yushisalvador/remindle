@@ -8,7 +8,7 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 // Screens
 import HomeScreen from "./screens/HomeScreen";
 import SettingsScreen from "./screens/SettingsScreen";
-import OccasionsScreen from "./screens/OccasionsScreen";
+import { OccasionsScreen, NewOccasionForm } from "./screens/OccasionsScreen";
 import LoginScreen from "./screens/LoginScreen";
 
 const Tab = createBottomTabNavigator();
@@ -23,6 +23,7 @@ function Stacks() {
         options={{ headerShown: false }}
       />
       <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="NewOccasionForm" component={NewOccasionForm} />
     </Stack.Navigator>
   );
 }
