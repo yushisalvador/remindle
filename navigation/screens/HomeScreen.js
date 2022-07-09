@@ -20,7 +20,6 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.mainText}>Welcome, {auth.currentUser?.email}</Text>
         <Text style={styles.mainText}>
           Helping You Remember Whats Important
         </Text>
@@ -39,6 +38,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#fff4e1",
   },
   containerButton: {
     flex: 1,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   mainText: {
     marginTop: 30,
-    color: "white",
+    color: "black",
     padding: 16,
     marginLeft: "1.4rem",
     textAlign: "left",
