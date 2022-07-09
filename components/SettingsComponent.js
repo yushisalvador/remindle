@@ -1,17 +1,48 @@
 import React from "react";
-import { SafeAreaView, TouchableOpacity, View, Text } from "react-native";
+import {
+  ScrollView,
+  TouchableOpacity,
+  View,
+  Text,
+  StyleSheet,
+} from "react-native";
 
 export default function SettingsComponent({ menuData }) {
   return (
-    <SafeAreaView>
+    <ScrollView style={styles.container}>
       {menuData.map(({ title, definition, index }) => (
         <TouchableOpacity key={title}>
-          <View>
-            <Text>{title}</Text>
-            <Text>{definition}</Text>
+          <View style={styles.singleMenu}>
+            <Text style={styles.mainText}>{title}</Text>
+            <Text style={styles.subText}>{definition}</Text>
           </View>
+          <View style={styles.divider} />
         </TouchableOpacity>
       ))}
-    </SafeAreaView>
+    </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "white",
+  },
+  singleMenu: {
+    paddingHorizontal: 10,
+    paddingBottom: 10,
+    paddingTop: 20,
+  },
+  mainText: {
+    fontSize: 17,
+    fontWeight: 600,
+  },
+  subText: {
+    fontSize: 14,
+    color: "grey",
+    fontWeight: 400,
+  },
+  divider: {
+    height: 0.5,
+    backgroundColor: "grey",
+  },
+});

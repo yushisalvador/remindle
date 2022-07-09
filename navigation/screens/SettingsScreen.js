@@ -10,7 +10,7 @@ export default function SettingsScreen({ navigation }) {
     },
     {
       title: "Feedback & Help",
-      definition: "Contacts us",
+      definition: "Contact us",
     },
     {
       title: "Screen",
