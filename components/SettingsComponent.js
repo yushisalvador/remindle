@@ -5,7 +5,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Pressable,
 } from "react-native";
 import AppModal from "./Modals/AppModal";
 
@@ -22,9 +21,9 @@ export default function SettingsComponent({
         title="Contact Us"
         modalBody={
           <View>
-            <Text style={{ fontSize: 18 }}>
+            <Text style={styles.contactBody}>
               For account deletion, bug reports and feedbacks, please email us
-              at <b>aremindly.gmail.com</b>
+              at <b>aremindly@gmail.com</b>
             </Text>
           </View>
         }
@@ -39,14 +38,6 @@ export default function SettingsComponent({
             <View style={styles.divider} />
           </TouchableOpacity>
         ))}
-        {/* <View>
-          {modalVisible && (
-            <ContactUsModal
-              setModalVisible={setModalVisible}
-              modalVisible={modalVisible}
-            />
-          )}
-        </View> */}
       </ScrollView>
     </>
   );
@@ -73,5 +64,9 @@ const styles = StyleSheet.create({
   divider: {
     height: 0.5,
     backgroundColor: "grey",
+  },
+
+  contactBody: {
+    fontSize: 18,
   },
 });

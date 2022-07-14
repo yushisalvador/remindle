@@ -14,7 +14,7 @@ import LoginScreen from "./screens/LoginScreen";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function Stacks() {
+const Stacks = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -26,9 +26,9 @@ function Stacks() {
       <Stack.Screen name="NewOccasionForm" component={NewOccasionForm} />
     </Stack.Navigator>
   );
-}
+};
 
-function MainContainer() {
+const MainContainer = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -77,14 +77,15 @@ function MainContainer() {
       </Tab.Navigator>
     </NavigationContainer>
   );
-}
+};
 
-function getTabBarVisibility(route) {
+const getTabBarVisibility = (route) => {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
 
   if (routeName === "Login") {
     return "none";
   }
   return "flex";
-}
+};
+
 export default MainContainer;
