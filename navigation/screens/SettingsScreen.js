@@ -1,9 +1,24 @@
+import { signOut } from "firebase/auth";
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import SettingsComponent from "../../components/SettingsComponent";
+import { auth } from "../.././config/firebase";
+import { useNavigation } from "@react-navigation/core";
 
-export default function SettingsScreen({ navigation }) {
+export default function SettingsScreen() {
   const [modalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation();
+
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        navigation.navigate("Login");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const menuData = [
     {
@@ -23,13 +38,22 @@ export default function SettingsScreen({ navigation }) {
       definition: "Enable Dark Mode!",
       onPress: () => {},
     },
+    {
+      title: "Logout",
+      definition: "You will have to login again",
+      onPress: () => {
+        handleSignOut();
+      },
+    },
   ];
 
   return (
-    <SettingsComponent
-      menuData={menuData}
-      modalVisible={modalVisible}
-      setModalVisible={setModalVisible}
-    />
+    <View>
+      <SettingsComponent
+        menuData={menuData}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
+    </View>
   );
 }
